@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple template</title>
+  </head>
+  <body>
+    <script>
+      /* Minimum und Maximum angaben in WASM Pages: 1 Page = 64kb
+          Minimum: 10 * 64kb = 640kb
+          Maximum: 100 * 64kb = 6.4 MB
+          */
+      var memory = new WebAssembly.Memory({initial:10, maximum:100}); 
+      // Schreibe in das erste Word einen Wert
+      new Uint32Array(memory.buffer)[0] = 42;
+      // Wert auslesen
+      var nu32 =  new Uint32Array(memory.buffer)[0]
+      memory.grow(1); // Speicher um 1 Page erweitern (kann nicht Maximalwert überschreiten)
+      // https://developer.mozilla.org/en-US/docs/WebAssembly/Using_the_JavaScript_API
+    </script>
+  </body>
+</html>
